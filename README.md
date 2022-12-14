@@ -91,6 +91,7 @@ From this point we will be configuring the `live system`.
 
    ```shell
    sudo chroot $HOME/live-ubuntu-from-scratch/chroot
+   export RELEASE="jammy"
    ```
 
 2. **Configure mount points, home and locale**
@@ -119,14 +120,14 @@ From this point we will be configuring the `live system`.
 
    ```shell
    cat <<EOF > /etc/apt/sources.list
-   deb http://us.archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse
-   deb-src http://us.archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse
+   deb http://us.archive.ubuntu.com/ubuntu/ $RELEASE main restricted universe multiverse
+   deb-src http://us.archive.ubuntu.com/ubuntu/ $RELEASE main restricted universe multiverse
 
-   deb http://us.archive.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
-   deb-src http://us.archive.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse
+   deb http://us.archive.ubuntu.com/ubuntu/ $RELEASE-security main restricted universe multiverse
+   deb-src http://us.archive.ubuntu.com/ubuntu/ $RELEASE-security main restricted universe multiverse
 
-   deb http://us.archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse
-   deb-src http://us.archive.ubuntu.com/ubuntu/ focal-updates main restricted universe multiverse
+   deb http://us.archive.ubuntu.com/ubuntu/ $RELEASE-updates main restricted universe multiverse
+   deb-src http://us.archive.ubuntu.com/ubuntu/ $RELEASE-updates main restricted universe multiverse
    EOF
    ```
 
@@ -205,6 +206,14 @@ From this point we will be configuring the `live system`.
        ubiquity-frontend-gtk \
        ubiquity-slideshow-ubuntu \
        ubiquity-ubuntu-artwork
+    ```
+11. ==ZFS Boot Components==
+
+    ```shell
+    sudo apt install --download-only zfsutils-linux grub-efi zfs-initramfs
+    mkdir /preseed/packages
+    cp /var/cache/apt/archives/* /preseed/packages
+    sudo apt install zfsutils-linux grub-efi zfs-initramfs
     ```
 
     The next steps will appear, as a result of the packages that will be installed from the previous step, this will happen without anything having  to be informed or executed.
