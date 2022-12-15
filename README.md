@@ -272,8 +272,7 @@ From this point we will be configuring the `live system`.
 
     ```shell
     apt-get install -y \
-        clamav-daemon \
-        terminator \
+        net-tools \
         apt-transport-https \
         curl \
         vim \
