@@ -171,6 +171,8 @@ From this point we will be configuring the `live system`.
 
 9. **Install packages needed for Live System**
 
+   Ubuntu versions less 22.04:
+
    ```shell
    apt-get install -y \
        sudo \
@@ -192,6 +194,29 @@ From this point we will be configuring the `live system`.
        grub-pc-bin \
        grub2-common
    ```
+
+   Ubuntu versions greater 22.04:
+   
+    ```shell
+   apt-get install -y \
+       sudo \
+       ubuntu-standard \
+       casper \
+       discover \
+       laptop-detect \
+       os-prober \
+       network-manager \
+       resolvconf \
+       net-tools \
+       wireless-tools \
+       wpagui \
+       locales \
+       grub-common \
+       grub-gfxpayload-lists \
+       grub-pc \
+       grub-pc-bin \
+       grub2-common
+   ```  
 
    ```shell
    apt-get install -y --no-install-recommends linux-generic
