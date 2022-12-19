@@ -145,8 +145,10 @@ function install_pkg() {
     apt-get autoremove -y
 
     # final touch
-    dpkg-reconfigure locales
-    dpkg-reconfigure resolvconf
+    # dpkg-reconfigure locales
+    locale-gen en_US.UTF-8
+    update-locale LANG=en_US.UTF-8
+    dpkg-reconfigure --default-priority resolvconf
 
     # network manager
     cat <<EOF > /etc/NetworkManager/NetworkManager.conf
@@ -159,9 +161,17 @@ dns=dnsmasq
 managed=false
 EOF
 
-    dpkg-reconfigure network-manager
+    dpkg-reconfigure --default-priority network-manager
 
     apt-get clean -y
+
+    apt install -y --download-only zfsutils-linux grub-efi zfs-initramfs
+    mkdir -p /server/packages
+    cp /var/cache/apt/archives/*.deb /server/packages
+    apt install -y zfsutils-linux grub-efi zfs-initramfs
+
+    apt-get clean -y
+
 }
 
 function finish_up() { 
